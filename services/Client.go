@@ -15,7 +15,7 @@ import (
 )
 
 func getEnvVariable(key string) string {
-  err:= godotenv.Load(".env")
+  err:= godotenv.Load("../.env")
   if err != nil {
     log.Fatalf("Error loading .env file")
   }
@@ -34,7 +34,7 @@ func DialClient() *ethclient.Client {
   return client
 }
 
-func initRPCClient() *rpc.Client {
+func InitRPCClient() *rpc.Client {
   var clientVal reflect.Value
   clientVal = reflect.ValueOf(DialClient()).Elem()
   fieldStruct := clientVal.FieldByName("c")

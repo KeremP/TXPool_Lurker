@@ -30,6 +30,7 @@ func StreamTx(rpcClient *rpc.Client) {
     select{
 
     case transactionHash := <-TxChannel:
+      fmt.Println(Yellow("Tx Detected"))
       tx, pending, _ := client.TransactionByHash(context.Background(), transactionHash)
 
       if pending {
@@ -41,5 +42,5 @@ func StreamTx(rpcClient *rpc.Client) {
 }
 
 func handleTX(tx *types.Transaction) {
-    fmt.Println("New TX detected. Hash: ", tx.Hash().String())
+    fmt.Println("New TX detected. Hash: ", tx.Hash().Hex())
 }

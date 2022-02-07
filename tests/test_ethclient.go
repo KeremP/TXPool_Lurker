@@ -24,18 +24,18 @@ func getEnvVariable(key string) string {
 
 
 func main(){
-	// var inufra_url = getEnvVariable("RPC_ENDPOINT")
-	// client,err := ethclient.Dial(inufra_url)
-  //
-	// if err != nil {
-	// 	log.Fatalf("Error:",err)
-	// }else{
-	// 	fmt.Println("Connection successful")
-	// }
+	var inufra_url = getEnvVariable("RPC_ENDPOINT")
+	client,err := ethclient.Dial(inufra_url)
 
-  _client := services.initRPCClient()
+	if err != nil {
+		log.Fatalf("Error:",err)
+	}else{
+		fmt.Println("Connection successful")
+	}
 
-	blockNumber,err := _client.BlockNumber(context.Background())
+  _client := services.InitRPCClient()
+
+	blockNumber,err := client.BlockNumber(context.Background())
 	if err != nil {
 		log.Fatalf("Error:",err)
 	}else{
