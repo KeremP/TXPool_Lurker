@@ -2,13 +2,14 @@ package main
 
 import (
 
-"context"
-"fmt"
-"log"
-"os"
-"github.com/joho/godotenv"
+      "context"
+      "fmt"
+      "log"
+      "os"
 
-"github.com/ethereum/go-ethereum/ethclient"
+      "github.com/keremp/TXPool_Lurker/services"
+      "github.com/joho/godotenv"
+      "github.com/ethereum/go-ethereum/ethclient"
 
 )
 
@@ -23,20 +24,25 @@ func getEnvVariable(key string) string {
 
 
 func main(){
-	var inufra_url = getEnvVariable("RPC_ENDPOINT")
-	client,err := ethclient.Dial(inufra_url)
+	// var inufra_url = getEnvVariable("RPC_ENDPOINT")
+	// client,err := ethclient.Dial(inufra_url)
+  //
+	// if err != nil {
+	// 	log.Fatalf("Error:",err)
+	// }else{
+	// 	fmt.Println("Connection successful")
+	// }
 
-	if err != nil {
-		log.Fatalf("Error:",err)
-	}else{
-		fmt.Println("Connection successful")
-	}
+  _client := services.initRPCClient()
 
-	blockNumber,err := client.BlockNumber(context.Background())
+	blockNumber,err := _client.BlockNumber(context.Background())
 	if err != nil {
 		log.Fatalf("Error:",err)
 	}else{
 		fmt.Println(blockNumber)
 	}
+
+  services.StreamTx(_client)
+
 
 }

@@ -2,8 +2,8 @@ package services
 
 import (
 
-        "flag"
-        "fmt"
+        // "flag"
+        // "fmt"
         "log"
         "os"
         "reflect"
@@ -35,9 +35,9 @@ func DialClient() *ethclient.Client {
 }
 
 func initRPCClient() *rpc.Client {
-  var clientVal = reflect.Value
+  var clientVal reflect.Value
   clientVal = reflect.ValueOf(DialClient()).Elem()
-  fieldStruct := clientValue.FieldByName("c")
+  fieldStruct := clientVal.FieldByName("c")
   clientPointer := reflect.NewAt(fieldStruct.Type(), unsafe.Pointer(fieldStruct.UnsafeAddr())).Elem()
   finalClient, _ := clientPointer.Interface().(*rpc.Client)
   return finalClient
