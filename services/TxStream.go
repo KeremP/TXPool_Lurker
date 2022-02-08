@@ -40,5 +40,6 @@ func StreamTx(rpcClient *rpc.Client) {
 }
 
 func handleTX(tx *types.Transaction) {
-    fmt.Println("New TX detected. Hash: ", tx.Hash().Hex())
+    // fmt.Println("New TX detected. Hash: ", tx.Hash().Hex())
+    classifyTx(tx)
 }
