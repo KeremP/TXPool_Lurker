@@ -1,48 +1,43 @@
 package main
 
 import (
+	"context"
+	"fmt"
+	"log"
+	"os"
 
-      "context"
-      "fmt"
-      "log"
-      "os"
-
-      "github.com/keremp/TXPool_Lurker/services"
-      "github.com/joho/godotenv"
-      "github.com/ethereum/go-ethereum/ethclient"
-
+	"github.com/ethereum/go-ethereum/ethclient"
+	"github.com/joho/godotenv"
+	"github.com/keremp/TXPool_Lurker/services"
 )
 
-
 func getEnvVariable(key string) string {
-  err:= godotenv.Load("../.env")
-  if err != nil {
-    log.Fatalf("Error loading .env file")
-  }
-  return os.Getenv(key)
+	err := godotenv.Load("../.env")
+	if err != nil {
+		log.Fatalf("Error loading .env file")
+	}
+	return os.Getenv(key)
 }
 
-
-func main(){
+func main() {
 	var inufra_url = getEnvVariable("RPC_ENDPOINT")
-	client,err := ethclient.Dial(inufra_url)
+	client, err := ethclient.Dial(inufra_url)
 
 	if err != nil {
-		log.Fatalf("Error:",err)
-	}else{
+		log.Fatalf("Error:", err)
+	} else {
 		fmt.Println("Connection successful")
 	}
 
-  _client := services.InitRPCClient()
+	_client := services.InitRPCClient()
 
-	blockNumber,err := client.BlockNumber(context.Background())
+	blockNumber, err := client.BlockNumber(context.Background())
 	if err != nil {
-		log.Fatalf("Error:",err)
-	}else{
+		log.Fatalf("Error:", err)
+	} else {
 		fmt.Println(blockNumber)
 	}
 
-  services.StreamTx(_client)
-
+	services.StreamTx(_client)
 
 }
