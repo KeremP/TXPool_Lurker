@@ -24,7 +24,7 @@ func main() {
 	client, err := ethclient.Dial(inufra_url)
 
 	if err != nil {
-		log.Fatalf("Error:", err)
+		log.Fatalf("Error: %s", err)
 	} else {
 		fmt.Println("Connection successful")
 	}
@@ -33,7 +33,7 @@ func main() {
 
 	blockNumber, err := client.BlockNumber(context.Background())
 	if err != nil {
-		log.Fatalf("Error:", err)
+		log.Fatalf("Error: %s", err)
 	} else {
 		fmt.Println(blockNumber)
 	}
